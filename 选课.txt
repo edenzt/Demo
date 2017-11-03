@@ -1,0 +1,125 @@
+1.建表
+drop table if exists course;
+ 
+drop table if exists student;
+
+drop table if exists administrator;
+
+
+drop table if exists student;
+
+create table student(
+
+ID char(6) NOT NULL,
+  
+name char(16) NOT NULL,
+
+password char(32) NOT NULL,
+
+pwdHint char(32) NOT NULL,
+
+role char(32) DEFAULT 'student',
+banji char(32) NOT NULL,
+ 
+courses char(255) DEFAULT NULL,
+PRIMARY KEY (ID)
+ 
+)ENGINE=innoDB character set='utf8';
+
+
+drop table if exists administrator;
+
+create table administrator(
+
+ID char(6) NOT NULL,
+ 
+name char(32) NOT NULL,
+ 
+password char(32) NOT NULL,
+ 
+pwdHint char(32) NOT NULL,
+ 
+role char(32) DEFAULT 'administrator',
+ 
+PRIMARY KEY (ID)
+  
+)engine=innodb character set='utf8';
+
+
+ 
+
+drop table if exists course;
+ 
+create table course(
+
+name char(32) not null,
+ 
+credit REAL not null,
+ 
+required int(1) not null DEFAULT 1,
+ 
+term char(32) not null,
+ 
+capacity int(2) not null,
+ 
+number int(2) DEFAULT 0,
+ 
+teacher char(32) not null,
+ 
+time char(32) not null,
+ 
+place char(32) not null,
+ 
+description char(32) DEFAULT NULL,
+ 
+score REAL DEFAULT 0,
+ 
+evaluateNum int(2) DEFAULT 0,
+ 
+evaluation char(255) DEFAULT NULL,
+ 
+PRIMARY KEY (name)
+
+)engine=innodb character set='utf8';
+
+
+
+drop table if exists `css`.`select_course`;
+
+CREATE TABLE `css`.`select_course` (
+ID  char(6) REFERENCES student(ID),
+name char(32) REFERENCES course(name),
+time char(32) NOT NULL,
+PRIMARY KEY (ID,name)
+)ENGINE=innoDB character set='utf8';
+
+2.导数据
+LOAD DATA INFILE  'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/system/student.csv' REPLACE INTO TABLE student
+CHARACTER SET gbk
+FIELDS TERMINATED BY  ','
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES;
+
+LOAD DATA INFILE  'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/system/course.csv' REPLACE INTO TABLE course
+CHARACTER SET gbk
+FIELDS TERMINATED BY  ','
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES;
+
+LOAD DATA INFILE  'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/system/administrator.csv' REPLACE INTO TABLE administrator
+CHARACTER SET gbk
+FIELDS TERMINATED BY  ','
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES;
+
+select * from student;
+select * from course;
+select * from administrator;
+
+
+
+
+
+
+
+
